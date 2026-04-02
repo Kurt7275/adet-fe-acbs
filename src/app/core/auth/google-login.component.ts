@@ -29,7 +29,7 @@ declare global {
         </svg>
         <svg *ngIf="isDarkMode" class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
           <!-- Sun icon -->
-          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a4 4 0 00 5.656 5.656l2.12-2.12A6 6 0 1013.536 12.95zM16 12a1 1 0 112 0 1 1 0 01-2 0zm2-8a1 1 0 100-2 1 1 0 000 2zM2 12a1 1 0 100-2 1 1 0 000 2zm10-10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a4 4 0 005.656 5.656l2.12-2.12A6 6 0 1013.536 12.95zM16 12a1 1 0 112 0 1 1 0 01-2 0zm2-8a1 1 0 100-2 1 1 0 000 2zM2 12a1 1 0 100-2 1 1 0 000 2zm10-10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
         </svg>
       </button>
 
@@ -134,7 +134,7 @@ declare global {
         <!-- Info card below -->
         <div class="mt-6 text-center text-white text-sm drop-shadow-lg">
           <p>For support, contact: <span class="font-semibold">support&#64;liceo.edu.ph</span></p>
-        </di>
+        </div>
       </div>
 
       <style>
@@ -145,7 +145,7 @@ declare global {
         }
 
         .animate-blob {
-          animation: blob 7s infinite;
+          animation: blo 7s infinite;
         }
 
         .animation-delay-2000 {
