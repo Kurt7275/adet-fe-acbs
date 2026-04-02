@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# environment
+.env
+.env.local
+
+# build output
+dist/
+out-tsc/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# misc
+*.log
