@@ -5,11 +5,7 @@
     "projects": {
       "adet-fe-acbs": {
         "projectType": "application",
-        "schematics": {
-          "@schematics/angular:component": {
-            "style": "scss"
-          }
-        },
+        "schematics": {},
         "root": "",
         "sourceRoot": "src",
         "prefix": "app",
@@ -31,33 +27,46 @@
               "styles": [
                 "src/styles.scss"
               ],
-              "scripts": [],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          },
-          "serve": {
-            "builder": "@angular-devkit/build-angular:dev-server",
-            "options": {
-              "browserTarget": "adet-fe-acbs:build"
+              "scripts": []
             },
             "configurations": {
               "production": {
-                "browserTarget": "adet-fe-acbs:build:production"
+                "budgets": [
+                  {
+                    "type": "bundle",
+                    "maximumWarningInSize": "2mb",
+                    "maximumErrorInSize": "5mb"
+                  }
+                ],
+                "outputHashing": "all"
               },
               "development": {
-                "browserTarget": "adet-fe-acbs:build:development"
+                "buildOptimizer": false,
+                "optimization": false,
+                "vendorChunk": true,
+                "extractLicenses": false,
+                "sourceMap": true,
+                "namedChunks": true
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+              "production": {
+                "buildTarget": "adet-fe-acbs:build:production"
+              },
+              "development": {
+                "buildTarget": "adet-fe-acbs:build:development"
               }
             },
             "defaultConfiguration": "development"
           }
         }
       }
+    },
+    "cli": {
+      "analytics": false
     }
   }

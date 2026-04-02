@@ -15,7 +15,7 @@ export const STUDENT_ROUTES: Routes = [
     path: 'bookings',
     loadComponent: () =>
       import('./pages/my-bookings/my-bookings.component').then((m) => m.MyBookingsComponent),
-  },    
+  },
   {
     path: 'history',
     loadComponent: () =>

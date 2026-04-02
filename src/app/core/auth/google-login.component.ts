@@ -23,66 +23,26 @@ declare global {
           Academic Consultation Booking System
         </p>
         
-        <div id="g_id_onload"
-          data-client_id="{{ googleClientId }}"
-          data-callback="handleCredentialResponse"
-          class="flex justify-center mb-6">
+        <div class="bg-blue-600 text-white text-center py-3 rounded-lg mb-6 cursor-pointer hover:bg-blue-700"
+          (click)="mockLogin()">
+          Sign in with Google
         </div>
-        <div id="g_id_signin" data-type="standard" data-size="large" data-theme="outline"></div>
 
         <p class="text-xs text-center text-gray-500 mt-6">
-          Login with your @liceo.edu.ph email
+          Login with your &#64;liceo.edu.ph email
         </p>
       </div>
     </div>
   `,
-  styles: [`
-    :host ::ng-deep {
-      .g_id_signin {
-        display: flex;
-        justify-content: center;
-      }
-    }
-  `]
 })
 export class GoogleLoginComponent implements OnInit {
-  googleClientId = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  ngOnInit(): void {
-    this.loadGoogleScript();
-  }
+  ngOnInit(): void {}
 
-  private loadGoogleScript(): void {
-    const script = document.createElement('script');
-    script.src = 'https://accounts.google.com/gsi/client';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      window.google.accounts.id.initialize({
-        client_id: this.googleClientId,
-        callback: (response: any) => this.handleLogin(response),
-      });
-      window.google.accounts.id.renderButton(
-        document.getElementById('g_id_signin'),
-        { theme: 'outline', size: 'large' }
-      );
-    };
-  }
-
-  private handleLogin(response: any): void {
-    if (response.credential) {
-      this.authService.googleLogin(response.credential).subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
-        },
-        error: (err) => {
-          console.error('Login failed:', err);
-        }
-      });
-    }
+  mockLogin(): void {
+    console.log('Google login button clicked');
+    // Will implement Google OAuth later
   }
 }
