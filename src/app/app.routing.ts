@@ -1,37 +1,32 @@
 import { Routes } from '@angular/router';
-import { authGuard, roleGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
+export const appRoutes: Routes = [
   {
     path: 'login',
-    loadComponent: () =>
-      import('./core/auth/google-login.component').then((m) => m.GoogleLoginComponent),
+    loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent),
   },
   {
     path: 'dashboard',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/student/student.routes').then((m) => m.STUDENT_ROUTES),
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'teachers',
+        loadComponent: () => import('./features/teachers/teacher-list/teacher-list.component').then(m => m.TeacherListComponent),
+      },
+      {
+        path: 'bookings',
+        loadComponent: () => import('./features/bookings/booking-list/booking-list.component').then(m => m.BookingListComponent),
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
+      },
+    ],
   },
   {
-    path: 'teacher',
-    canActivate: [authGuard, roleGuard(['TEACHER'])],
-    loadChildren: () =>
-      import('./features/teacher/teacher.routes').then((m) => m.TEACHER_ROUTES),
-  },
-  {
-    path: 'admin',
-    canActivate: [authGuard, roleGuard(['ADMIN'])],
-    loadChildren: () =>
-      import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
-  },
-  {
-    path: '**',
-    redirectTo: 'dashboard',
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
   },
 ];

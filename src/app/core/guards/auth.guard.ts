@@ -1,31 +1,25 @@
-import { Injectable, inject } from '@angular/core';
-import { Router, CanActivateFn } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { Injectable } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
-  const router = inject(Router);
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  if (authService.getToken() && !authService.isTokenExpired()) {
-    return true;
-  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.authService.isAuthenticated()) {
+      const user = this.authService.getCurrentUser();
+      const requiredRoles = route.data['roles'];
 
-  router.navigate(['/login']);
-  return false;
-};
+      if (requiredRoles && !requiredRoles.includes(user?.role)) {
+        this.router.navigate(['/unauthorized']);
+        return false;
+      }
 
-export const roleGuard = (allowedRoles: string[]): CanActivateFn => {
-  return (route, state) => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
-
-    const currentUser = authService.getCurrentUser();
-
-    if (currentUser && allowedRoles.includes(currentUser.role)) {
       return true;
     }
 
-    router.navigate(['/unauthorized']);
+    this.router.navigate(['/login']);
     return false;
-  };
-};
+  }
+} 
